@@ -28,6 +28,7 @@ main game function, draws the grid lines, the board, and the background.
 '''
 def game_screen():
     # grid lines
+    screen.fill(BACKGROUND_COLOR)  # background
     for i in range(10):  # draws both horizontal and vertical lines, 10 lines in each
         pygame.draw.line(
             screen,
@@ -58,7 +59,6 @@ def game_screen():
             (25 + (i * 150), 500 - 25),
             width=5
         )
-        screen.fill(BACKGROUND_COLOR)  # background
         print_board(board)  # prints numbers
 
 
@@ -101,4 +101,15 @@ if __name__ == "__main__":
     pygame.init()
     pygame.display.set_caption('Sudoku', os.path.join('assets', 'logo.png'))  # set app title
     screen = pygame.display.set_mode((500, 650))  # set app dimensions
+    board = [
+        [5, 3, 0, 0, 7, 0, 0, 0, 0],
+        [6, 0, 0, 1, 9, 5, 0, 0, 0],
+        [0, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+    ]
     main()  # runs main loop
