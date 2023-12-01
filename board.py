@@ -1,6 +1,6 @@
 from cell import Cell
 from const import *
-import pygame  #FIXME: broken, sudoku_generator not needed yet
+import pygame  #FIXME: import and implement sudoku_generator once it's done
 
 
 class Board:
