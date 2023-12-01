@@ -26,7 +26,7 @@ class Board:
         for col in range(len(temp)):
             tmp = []
             for row in range(len(temp[col])):
-                tmp.append(Cell(temp[col][row], row, col, self.screen))
+                tmp.append(Cell(temp[col][row], row, col, self.screen, is_given=True))
             temp2.append(tmp)
         self.board = temp2
         '''END TEMPORARY CODE TO TEST PROGRAM'''
@@ -38,6 +38,7 @@ class Board:
                 self.user_board[column].append(Cell('0', row, column, screen))
 
         self.current_selected = None
+        self.current_selected_pos = None
 
     def draw(self):
         self.screen.fill(BACKGROUND_COLOR)
@@ -61,14 +62,15 @@ class Board:
                 width=5
             )
         if self.current_selected is not None:
-            self.board[self.current_selected[0]][self.current_selected[1]].draw(is_selected=True)  # shows overlay of selected cell if any is selected
+            self.current_selected.draw(is_selected=True)  # shows overlay of selected cell if any is selected
 
     def select(self, col=None, row=None):
         if col is None and row is None:
-            self.current_selected = [self.current_selected[0], self.current_selected[1]]  # if function is called without args, don't modify the cell
+            pass  # if function is called without args, don't modify anything
         else:
-            self.current_selected = [col, row]  # else, update it to the values passed in
-        return self.current_selected  # returns the location of the currently selected cell
+            self.current_selected_pos = [row, col]
+            self.current_selected = self.board[row][col]  # else, update it to the values passed in
+        return self.current_selected_pos  # returns the location of the currently selected cell
 
     def click(self, x, y):
         if 25 <= x <= 475 and 25 <= y <= 475:  # if the click is in the range of the board
@@ -82,4 +84,5 @@ class Board:
                 cell.set_cell_value('0')
 
     def sketch(self, value):
-        board
+        if self.current_selected.value == '0':
+            self.current_selected.set_sketched_value(value)

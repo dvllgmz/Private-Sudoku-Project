@@ -14,6 +14,7 @@ def main():
 
             if current_screen == 'main_menu':
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    #fixme: Finish the home screen and fix the code
                     board = Board(9, 9, screen, 'easy')
                     board.draw()
                     current_screen = 'game'
@@ -22,7 +23,6 @@ def main():
             if current_screen == 'game':
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cell = board.click(event.pos[0], event.pos[1])
-                    print(cell)
                     if cell is not None:
                         board.select(cell[0], cell[1])  # selects the box based on coords if it exists
                     board.draw()
@@ -37,8 +37,8 @@ def main():
                             board.select(board.select()[0]-1, board.select()[1])
                     if event.key == pygame.K_RIGHT:
                         board.select(board.select()[0]+1, board.select()[1])
-                    if event.unicode.isdigit():
-                        pass
+                    if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
+                        board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
 
                     board.draw()
 
