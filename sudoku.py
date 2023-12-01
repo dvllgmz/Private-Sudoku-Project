@@ -14,7 +14,7 @@ def main():
 
             if current_screen == 'main_menu':
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    #fixme: Finish the home screen and fix the code
+                    #fixme: Finish the home screen and implement board generation
                     board = Board(9, 9, screen, 'easy')
                     board.draw()
                     current_screen = 'game'
@@ -39,7 +39,10 @@ def main():
                         board.select(board.select()[0]+1, board.select()[1])
                     if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
                         board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
-
+                    if event.key == pygame.K_RETURN:
+                        board.place_number()
+                    if event.key == pygame.K_BACKSPACE:
+                        board.clear()
                     board.draw()
 
                 continue

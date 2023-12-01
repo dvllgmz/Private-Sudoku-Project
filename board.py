@@ -39,10 +39,14 @@ class Board:
 
         self.current_selected = None
         self.current_selected_pos = None
+        self.current_selected_value = None
 
     def draw(self):
         self.screen.fill(BACKGROUND_COLOR)
-        for row in self.board:
+        for row in self.board:  # draws the game board
+            for cell in row:
+                cell.draw()
+        for row in self.user_board:  # draws the user board over the game board
             for cell in row:
                 cell.draw()
 
@@ -69,7 +73,7 @@ class Board:
             pass  # if function is called without args, don't modify anything
         else:
             self.current_selected_pos = [row, col]
-            self.current_selected = self.board[row][col]  # else, update it to the values passed in
+            self.current_selected = self.user_board[row][col]  # else, update it to the values passed in
         return self.current_selected_pos  # returns the location of the currently selected cell
 
     def click(self, x, y):
@@ -79,10 +83,16 @@ class Board:
             return None  # if not in range of board
 
     def clear(self):
-        for column in self.user_board:
-            for cell in column:
-                cell.set_cell_value('0')
+        self.current_selected.set_cell_value(0)
 
     def sketch(self, value):
-        if self.current_selected.value == '0':
-            self.current_selected.set_sketched_value(value)
+        position = self.current_selected_pos
+        if str(self.board[position[0]][position[1]]) == '0': # checks if value doesn't already exist in the game board
+            position = self.current_selected_pos  # gets the position of the selected cell
+            self.user_board[position[0]][position[1]].set_sketched_value(value)  # sets sketched value to cell in user board
+
+    def place_number(self, value=None):
+        position = self.current_selected_pos
+        if value is None:
+            value = str(self.current_selected)  # gets value
+        self.user_board[position[0]][position[1]].set_cell_value(value)
