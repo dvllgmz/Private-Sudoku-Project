@@ -1,4 +1,5 @@
 from cell import Cell
+from const import *
 class Board(Cell):
     def __init__(self, width, height, screen, difficulty):
         self.width = width
