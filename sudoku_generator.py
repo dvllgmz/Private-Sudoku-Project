@@ -23,7 +23,10 @@ class SudokuGenerator:
 	None
     '''
     def __init__(self, row_length, removed_cells):
-        pass
+        self.row_length = row_length
+        self.removed_cells = removed_cells
+        self.board = [[]] #FIXME need to put actual code here lol
+        self.box_length = sqrt(row_length)
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -31,8 +34,8 @@ class SudokuGenerator:
 	Parameters: None
 	Return: list[list]
     '''
-    def get_board(self):
-        pass
+    def get_board(self): -> list[list]
+        return self.board
 
     '''
 	Displays the board to the console
@@ -42,7 +45,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        pass
+        print(self.board)
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -55,7 +58,10 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_row(self, row, num):
-        pass
+        for value in row:
+            if value == num:
+                return False
+        return True
 
     '''
 	Determines if num is contained in the specified column (vertical) of the board
@@ -68,7 +74,10 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
-        pass
+        for value in col:
+            if value == num:
+                return False
+        return True
 
     '''
 	Determines if num is contained in the 3x3 box specified on the board
@@ -83,7 +92,11 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        pass
+        for i in range(row_start, row_start + 2):
+            for j in range(col_start, col_start + 2):
+                if j == num
+                    return False
+        return True
     
     '''
     Determines if it is valid to enter num at (row, col) in the board
@@ -209,3 +222,51 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+''' 
+Represents a single cell in the Sudoku board
+There are 81 cells in a board
+'''
+class Cell:
+    def __init__(self, value, row, col, screen):
+        pass
+    def set_cell_value(self, value):
+        pass
+    def set_sketched_value(self,value):
+        pass
+    def draw(self):
+        pass
+
+'''
+Represents an entire sudoku board
+A board object has 81 cell objects
+'''
+class Board:
+    '''
+    screen is a window from PyGame
+    difficulty is a variable to indicate if the user chose easy/medium/hard
+    '''
+    def __init__(self, width, height, screen, difficulty):
+        pass
+    def draw(self):
+        pass
+    def select(self, row, col):
+        pass
+    def click(self, x , y):
+        pass
+    def clear(self):
+        pass
+    def sketch(self, value):
+        pass
+    def place_number(self, value):
+        pass
+    def reset_to_original(self):
+        pass
+    def is_full(self):
+        pass
+    def update_board(self):
+        pass
+    def find_empty(self):
+        pass
+    def check_board(self):
+        pass
