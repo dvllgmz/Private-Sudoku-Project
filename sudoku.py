@@ -4,6 +4,14 @@ import pygame, os
 from const import *  # imports constants from const.py
 from board import Board
 
+
+def main_menu():  # prints main menu  #fixme: IMPLEMENT QUIT BUTTON AND BUTTON AREA DETECTION
+    start_button = pygame.Rect(100, 200, 300, 150)  # start button box
+    pygame.draw.rect(screen, BOLD_LINE_COLOR, start_button)  # draws button
+    start_button_font = pygame.font.Font(None, 50)  # initializes font
+    start_button_rendered = start_button_font.render('START GAME', 1, GIVEN_NUMBER_COLOR)  # renders font
+    screen.blit(start_button_rendered, start_button_rendered.get_rect(center=(250, 275)))  # renders text
+
 def main():
     current_screen = 'main_menu'
     while True:
@@ -13,8 +21,10 @@ def main():
                 sys.exit()
 
             if current_screen == 'main_menu':
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    #fixme: Finish the home screen and implement board generation
+                main_menu()
+                if event.type == pygame.MOUSEBUTTONDOWN:  #fixme: Check area where mouse is clicked
+                    #fixme: Finish the home screen and implement board generation and button area detection
+
                     board = Board(9, 9, screen, 'easy')
                     board.draw()
                     current_screen = 'game'
@@ -28,15 +38,17 @@ def main():
                     board.draw()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        if board.select()[1] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[0], board.select()[1]-1)
+                        if board.select()[0] != 0:  # check if cell is within bounds
+                            board.select(board.select()[1], board.select()[0]-1)
                     if event.key == pygame.K_DOWN:
-                        board.select(board.select()[0], board.select()[1]+1)
+                        if board.select()[0] != 8:  # check if cell is within bounds
+                            board.select(board.select()[1], board.select()[0]+1)
                     if event.key == pygame.K_LEFT:
-                        if board.select()[0] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[0]-1, board.select()[1])
+                        if board.select()[1] != 0:  # checks if cell is within bounds
+                            board.select(board.select()[1]-1, board.select()[0])
                     if event.key == pygame.K_RIGHT:
-                        board.select(board.select()[0]+1, board.select()[1])
+                        if board.select()[1] != 8:  # check if cell is within bounds
+                            board.select(board.select()[1]+1, board.select()[0])
                     if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
                         board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
                     if event.key == pygame.K_RETURN:
