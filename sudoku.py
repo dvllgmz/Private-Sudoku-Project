@@ -28,17 +28,25 @@ def main():
                     board.draw()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        if board.select()[1] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[0], board.select()[1]-1)
+                        if board.select()[0] != 0:  # checks if cell is within bounds
+                            board.select(board.select()[1], board.select()[0]-1)
+                        else:
+                            board.select(board.select()[1], 8)
                     if event.key == pygame.K_DOWN:
                         if board.select()[0] != 8:
-                            board.select(board.select()[0], board.select()[1]+1)
+                            board.select(board.select()[1], board.select()[0]+1)
+                        else:
+                            board.select(board.select()[1], 0)
                     if event.key == pygame.K_LEFT:
-                        if board.select()[0] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[0]-1, board.select()[1])
+                        if board.select()[1] != 0:  # checks if cell is within bounds
+                            board.select(board.select()[1]-1, board.select()[0])
+                        else:
+                            board.select(8, board.select()[0])
                     if event.key == pygame.K_RIGHT:
-                        if board.select()[0] != 8:
-                            board.select(board.select()[0]+1, board.select()[1])
+                        if board.select()[1] != 8:
+                            board.select(board.select()[1]+1, board.select()[0])
+                        else:
+                            board.select(0, board.select()[0])
                     if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
                         board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
                     if event.key == pygame.K_RETURN:
