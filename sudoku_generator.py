@@ -109,7 +109,8 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        pass
+        return self.valid_in_row(row, num) and self.valid_in_col(col, num) and self.valid_in_box(row - row % 3, col - col % 3, num)
+    # Boolean algebra will return true or false correctly
 
     '''
     Fills the specified 3x3 box with values
@@ -227,46 +228,4 @@ def generate_sudoku(size, removed):
 Represents a single cell in the Sudoku board
 There are 81 cells in a board
 '''
-class Cell:
-    def __init__(self, value, row, col, screen):
-        pass
-    def set_cell_value(self, value):
-        pass
-    def set_sketched_value(self,value):
-        pass
-    def draw(self):
-        pass
 
-'''
-Represents an entire sudoku board
-A board object has 81 cell objects
-'''
-class Board:
-    '''
-    screen is a window from PyGame
-    difficulty is a variable to indicate if the user chose easy/medium/hard
-    '''
-    def __init__(self, width, height, screen, difficulty):
-        pass
-    def draw(self):
-        pass
-    def select(self, row, col):
-        pass
-    def click(self, x , y):
-        pass
-    def clear(self):
-        pass
-    def sketch(self, value):
-        pass
-    def place_number(self, value):
-        pass
-    def reset_to_original(self):
-        pass
-    def is_full(self):
-        pass
-    def update_board(self):
-        pass
-    def find_empty(self):
-        pass
-    def check_board(self):
-        pass
