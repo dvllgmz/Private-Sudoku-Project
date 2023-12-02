@@ -1,5 +1,4 @@
 import sys
-
 import pygame, os
 from const import *  # imports constants from const.py
 from board import Board
@@ -13,8 +12,25 @@ def main():
                 sys.exit()
 
             if current_screen == 'main_menu':
+
+                # fonts
+                main_menu_font = pygame.font.Font('freesansbold.ttf', 50)
+                button_font = pygame.font.Font('freesansbold.ttf', 30)
+
+                # background
+                screen.fill(BACKGROUND_COLOR)
+
+                # title
+                title_text = main_menu_font.render('Sudoku', 0, BOLD_LINE_COLOR)
+                title_rect = title_text.get_rect(center=(250, 150))
+                screen.blit(title_text, title_rect)
+
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    #fixme: Finish the home screen and implement board generation
+
+                    #fixme: Finish the home screen and implement board generation\
+
+
                     board = Board(9, 9, screen, 'easy')
                     board.draw()
                     current_screen = 'game'
@@ -53,6 +69,8 @@ def main():
                         board.place_number()
                     if event.key == pygame.K_BACKSPACE:
                         board.clear()
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
                     board.draw()
 
                 continue
