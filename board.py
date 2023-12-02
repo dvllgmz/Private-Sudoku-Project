@@ -136,3 +136,12 @@ class Board:
                     duplicate it wouldn't be 9'''
                     return False
         return True # need to add the win screen in the main or sudoko
+
+    def get_cell(self, row, col):
+        # Check if the row and column indices are within the valid range
+        if row < 0 or row >= self.row_length or col < 0 or col >= self.row_length:
+            raise ValueError("Invalid row or column index")
+        # Return the value of the cell at the given row and column
+        return self.board[row][col]
+    #FIXME get_cell method may be buggy, might have to refactor if this doesn't work. I was using some
+    # tick tack toe reference that this added but I forgot to add it myself.
