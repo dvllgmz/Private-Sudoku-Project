@@ -96,3 +96,43 @@ class Board:
         if value is None:
             value = str(self.current_selected)  # gets value
         self.user_board[position[0]][position[1]].set_cell_value(value)
+    def reset_to_original(self): # Reset all cells in the board to their original values (0 if cleared, otherwise original)
+        for row in range(9):
+            for col in range(9):
+                self.user_board[row][col].set_cell_value(self.board[row][col].get_cell_value())
+                # Iterates through clearing what isn't original
+    def is_full(self): # Returns a Boolean value indicating whether the board is full or not
+        for row in range(9):
+            for col in range(9):
+                if self.user_board[row][col].get_cell_value() == '0':
+                    return False
+        return True
+
+    def update_board(self): # Updates the underlying 2D board with values in all cells
+        for row in range(9):
+            for col in range(9): # Iterates through the board
+                self.board[row][col].set_cell_value(self.user_board[row][col].get_cell_value())
+                # user_board -> board (2D)
+    def find_empty(self): # Finds an empty cell and returns its row and col as a tuple (x,y)
+        for row in range(9):
+            for col in range(9): # Iterates through the board
+                if self.board[row][col].get_cell_value() == '0': # checks if its empty
+                    return row, col
+                    # Returns it as a tuple
+        return None # prevents logic error
+    def check_board(self): # Check whether the Sudoko board is solved correctly
+        for row in range(9): # checks each row
+            if len(set(self.board[row])) != 9: # Checks each row for duplicates, because its a set
+                return False # Incorrect
+        for col in range(9): # checks each column
+            if len(set(self.board[i][col] for i in range(9))) != 9: # Checks each column for duplicates, because its a set
+                return False # Incorrect
+        for box_row in range(0, 9, 3):
+            for box_col in range(0, 9, 3): # 0, 3, 6 are the starting index for the rows of boxes
+                if len(set(self.board[i][j] for i in range(box_row, box_row + 3) for j in
+                           range(box_col, box_col + 3))) != 9:
+                    '''okay, so, it basically checks each box. I iterate through each row top to bottom
+                    adding the numbers to the set, then it checks the length of the set because if there was a
+                    duplicate it wouldn't be 9'''
+                    return False
+        return True # need to add the win screen in the main or sudoko
