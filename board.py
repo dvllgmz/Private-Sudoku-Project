@@ -99,24 +99,24 @@ class Board:
     def reset_to_original(self): # Reset all cells in the board to their original values (0 if cleared, otherwise original)
         for row in range(9):
             for col in range(9):
-                self.user_board[row][col].set_cell_value(self.board[row][col].get_cell_value())
+                self.user_board[row][col].set_cell_value(self.board[row][col])
                 # Iterates through clearing what isn't original
     def is_full(self): # Returns a Boolean value indicating whether the board is full or not
         for row in range(9):
             for col in range(9):
-                if self.user_board[row][col].get_cell_value() == '0':
+                if self.user_board[row][col] == '0':
                     return False
         return True
 
     def update_board(self): # Updates the underlying 2D board with values in all cells
         for row in range(9):
             for col in range(9): # Iterates through the board
-                self.board[row][col].set_cell_value(self.user_board[row][col].get_cell_value())
+                self.board[row][col].set_cell_value(self.user_board[row][col])
                 # user_board -> board (2D)
     def find_empty(self): # Finds an empty cell and returns its row and col as a tuple (x,y)
         for row in range(9):
             for col in range(9): # Iterates through the board
-                if self.board[row][col].get_cell_value() == '0': # checks if its empty
+                if self.board[row][col] == '0': # checks if its empty
                     return row, col
                     # Returns it as a tuple
         return None # prevents logic error
@@ -136,12 +136,3 @@ class Board:
                     duplicate it wouldn't be 9'''
                     return False
         return True # need to add the win screen in the main or sudoko
-
-    def get_cell(self, row, col):
-        # Check if the row and column indices are within the valid range
-        if row < 0 or row >= self.row_length or col < 0 or col >= self.row_length:
-            raise ValueError("Invalid row or column index")
-        # Return the value of the cell at the given row and column
-        return self.board[row][col]
-    #FIXME get_cell method may be buggy, might have to refactor if this doesn't work. I was using some
-    # tick tack toe reference that this added but I forgot to add it myself.
