@@ -3,10 +3,12 @@ import pygame, os
 from const import *  # imports constants from const.py
 from board import Board
 
+
 def main():
     # fonts
     main_menu_font = pygame.font.Font('freesansbold.ttf', 50)
     button_font = pygame.font.Font('freesansbold.ttf', 30)
+    small_button_font = pygame.font.Font('freesansbold.ttf', 22)
 
     # background
     screen.fill(BACKGROUND_COLOR)
@@ -69,6 +71,30 @@ def main():
     restart_lose_surface.blit(restart_lose_button, (23, 20))
     restart_rectangle = restart_lose_surface.get_rect(center=(250, 350))
 
+    reset_button = small_button_font.render('Reset', 1, COLOR_WHITE)
+    reset_button.get_rect(center=(150, 550))
+    reset_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
+    reset_surface.fill(COLOR_RED)
+    reset_surface.blit(reset_button, (0, 0))
+    # use this line to control text location
+    reset_rectangle = reset_surface.get_rect(center=(150, 550))
+
+    restart_game_button = small_button_font.render('Restart', 1, COLOR_WHITE)
+    restart_game_button.get_rect(center=(275, 550))
+    restart_game_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
+    restart_game_surface.fill(COLOR_RED)
+    restart_game_surface.blit(restart_game_button, (20, 20))
+    # use this line to control text location
+    restart_game_rectangle = restart_game_surface.get_rect(center=(275, 550))
+
+    exit_game_button = small_button_font.render('Exit', 1, COLOR_WHITE)
+    exit_game_button.get_rect(center=(400, 550))
+    exit_game_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
+    exit_game_surface.fill(COLOR_RED)
+    exit_game_surface.blit(exit_game_button, (0, 0))
+    # use this line to control text location
+    exit_game_rectangle = restart_game_surface.get_rect(center=(400, 550))
+
 
     current_screen = 'main_menu'
     while True:
@@ -106,30 +132,42 @@ def main():
                         sys.exit()
 
             if current_screen == 'game':
+                screen.blit(reset_button, reset_rectangle)
+                screen.blit(restart_game_button, restart_game_rectangle)
+                screen.blit(exit_game_button, exit_game_rectangle)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cell = board.click(event.pos[0], event.pos[1])
+                    if reset_rectangle.collidepoint(event.pos):
+                        pass
+                    elif restart_game_rectangle.collidepoint(event.pos):
+                        pass
+                    elif exit_game_rectangle.collidepoint(event.pos):
+                        pygame.quit()
+                        sys.exit()
+                    #FIXME these rectangles are not yet complete, see buttons on line 74
+
                     if cell is not None:
                         board.select(cell[0], cell[1])  # selects the box based on coords if it exists
                     board.draw()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         if board.select()[0] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[1], board.select()[0]-1)
+                            board.select(board.select()[1], board.select()[0] - 1)
                         else:
                             board.select(board.select()[1], 8)
                     if event.key == pygame.K_DOWN:
                         if board.select()[0] != 8:
-                            board.select(board.select()[1], board.select()[0]+1)
+                            board.select(board.select()[1], board.select()[0] + 1)
                         else:
                             board.select(board.select()[1], 0)
                     if event.key == pygame.K_LEFT:
                         if board.select()[1] != 0:  # checks if cell is within bounds
-                            board.select(board.select()[1]-1, board.select()[0])
+                            board.select(board.select()[1] - 1, board.select()[0])
                         else:
                             board.select(8, board.select()[0])
                     if event.key == pygame.K_RIGHT:
                         if board.select()[1] != 8:
-                            board.select(board.select()[1]+1, board.select()[0])
+                            board.select(board.select()[1] + 1, board.select()[0])
                         else:
                             board.select(0, board.select()[0])
                     if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
@@ -141,9 +179,9 @@ def main():
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+                    screen.fill(BACKGROUND_COLOR)
                     board.draw()
 
-                continue
             if current_screen == 'win':
                 screen.blit(quit_surface_win, quit_rectangle_win)
                 screen.blit(win_text, win_rect)
@@ -160,7 +198,6 @@ def main():
                         board.draw()
                         current_screen = 'game'
 
-
         pygame.display.update()
         # to implement
 
@@ -170,3 +207,4 @@ if __name__ == "__main__":
     pygame.display.set_caption('Sudoku', os.path.join('assets', 'logo.png'))  # set app title
     screen = pygame.display.set_mode((500, 650))  # set app dimensions
     main()  # runs main loop
+
