@@ -14,7 +14,6 @@ def main():
     # title
     title_text = main_menu_font.render('Sudoku', 1, BOLD_LINE_COLOR)
     title_rect = title_text.get_rect(center=(250, 150))
-    screen.blit(title_text, title_rect)
 
     # buttons
     medium_button = button_font.render('Medium', 1, COLOR_WHITE)
@@ -49,7 +48,29 @@ def main():
     # use this line to control text location
     quit_rectangle = quit_surface.get_rect(center=(250, 550))
 
-    current_screen = 'main_menu'
+    win_text = main_menu_font.render('YOU WIN!', 1, BOLD_LINE_COLOR)
+    win_rect = win_text.get_rect(center=(250, 150))
+
+    quit_button_win = button_font.render('Quit', 1, COLOR_WHITE)
+    quit_button_win.get_rect(center=(250, 350))
+    quit_surface_win = pygame.Surface((medium_button.get_size()[0] + 40, medium_button.get_size()[1] + 40))
+    quit_surface_win.fill(COLOR_RED)
+    quit_surface_win.blit(quit_button_win, (42, 20))
+    # use this line to control text location
+    quit_rectangle_win = quit_surface_win.get_rect(center=(250, 550))
+
+    lose_text = main_menu_font.render('Game over =(', 1, BOLD_LINE_COLOR)
+    lose_rect = lose_text.get_rect(center=(250, 150))
+
+    restart_lose_button = button_font.render('Restart', 1, COLOR_WHITE)
+    restart_lose_button.get_rect(center=(250, 350))
+    restart_lose_surface = pygame.Surface((medium_button.get_size()[0] + 40, medium_button.get_size()[1] + 40))
+    restart_lose_surface.fill(COLOR_RED)
+    restart_lose_surface.blit(restart_lose_button, (23, 20))
+    restart_rectangle = restart_lose_surface.get_rect(center=(250, 350))
+
+
+    current_screen = 'win'
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -123,21 +144,15 @@ def main():
 
                 continue
             if current_screen == 'win':
-                win_text = main_menu_font.render('YOU WIN!', 1, BOLD_LINE_COLOR)
-                win_rect = title_text.get_rect(center=(250, 150))
+                screen.blit(quit_surface_win, quit_rectangle_win)
                 screen.blit(win_text, win_rect)
-                quit_rectangle = medium_surface.get_rect(center=(250, 350))
-                screen.blit(medium_surface, quit_rectangle)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if quit_rectangle.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()
             if current_screen == 'lose':
-                lose_text = main_menu_font.render('Game over =(', 1, BOLD_LINE_COLOR)
-                lose_rect = title_text.get_rect(center=(250, 150))
                 screen.blit(lose_text, lose_rect)
-                restart_rectangle = medium_surface.get_rect(center=(250, 350))
-                screen.blit(medium_surface, restart_rectangle)
+                screen.blit(restart_lose_surface, restart_rectangle)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if restart_rectangle.collidepoint(event.pos):
                         board = Board(9, 9, screen, 'easy')
