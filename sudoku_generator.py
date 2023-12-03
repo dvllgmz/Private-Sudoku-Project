@@ -140,10 +140,12 @@ class SudokuGenerator:
         sudoku_nums = []
         for i in range(1, 10):
             sudoku_nums.append(i)
+
         for j in range(0, 3):
             for k in range(0, 3):
                 self.board[row_start + k][row_start + j] = random.choice(sudoku_nums)
                 sudoku_nums.remove(self.board[row_start + k][row_start + j])
+        # assigns random numbers to the box, then removes them from future possibility
 
         '''random_digit = random.randint(1, 9)
         for row_index in range(row_start, row_start + 3):
@@ -163,16 +165,8 @@ class SudokuGenerator:
         for box in range(0, 3):
             # idea is to fill in each row of the box with 3 random numbers, without replacement
             # and then iterate to the next box in the diagonal
-
-            diag1 = []
-            for i in range(1, 10):
-                diag1.append(i)
-            # creates a list for each to pull from
             self.fill_box(box * 3, box * 3)
 
-            # assigns random numbers to the box, then removes them from future possibility
-
-            # this represents the value in the middle of the board
 
         '''for index in range(0, self.row_length, 3):
             self.fill_box(index, index)'''
