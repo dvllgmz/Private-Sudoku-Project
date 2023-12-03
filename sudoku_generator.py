@@ -113,13 +113,13 @@ class SudokuGenerator:
     '''
     def is_valid(self, row, col, num):
         # Make sure number is single-digit number
-        if 1>= num >= 9:
+        if 1 >= num >= 9:
             return False
         # Iterating through entire board to ensure number is not present in general row/column
-        for row_index in range(self.board):
+        for row_index in range(0, 9):
             if num == self.board[row_index][col]:
                 return False
-        for col_index in range(self.board):
+        for col_index in range(0, 9):
             if num == self.board[row][col_index]:
                 return False
         # Iterating through smaller 3x3 boards to ensure number is not present within
@@ -137,12 +137,19 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start):
-        # FIXME supposed to use 'unused_in_box' but no such method is outlined in instructions -dani 12/12
-        random_digit = random.randint(1, 9)
+        sudoku_nums = []
+        for i in range(1, 10):
+            sudoku_nums.append(i)
+        for j in range(0, 3):
+            for k in range(0, 3):
+                self.board[row_start + k][row_start + j] = random.choice(sudoku_nums)
+                sudoku_nums.remove(self.board[row_start + k][row_start + j])
+
+        '''random_digit = random.randint(1, 9)
         for row_index in range(row_start, row_start + 3):
             for col_index in range(col_start, col_start + 3):
                 if self.board[row_index][col_index] == 0:
-                    self.board[row_index][col_index] = random_digit
+                    self.board[row_index][col_index] = random_digit'''
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -152,8 +159,23 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        for index in range(0, self.row_length, 3):
-            self.fill_box(index, index)
+
+        for box in range(0, 3):
+            # idea is to fill in each row of the box with 3 random numbers, without replacement
+            # and then iterate to the next box in the diagonal
+
+            diag1 = []
+            for i in range(1, 10):
+                diag1.append(i)
+            # creates a list for each to pull from
+            self.fill_box(box * 3, box * 3)
+
+            # assigns random numbers to the box, then removes them from future possibility
+
+            # this represents the value in the middle of the board
+
+        '''for index in range(0, self.row_length, 3):
+            self.fill_box(index, index)'''
 
     '''
     DO NOT CHANGE
@@ -168,7 +190,7 @@ class SudokuGenerator:
 	boolean (whether or not we could solve the board)
     '''
     def fill_remaining(self, row, col):
-        if (col >= self.row_length and row < self.row_length - 1):
+        if col >= self.row_length and row < self.row_length - 1:
             row += 1
             col = 0
         if row >= self.row_length and col >= self.row_length:
