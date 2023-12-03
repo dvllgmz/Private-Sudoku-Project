@@ -26,7 +26,7 @@ class SudokuGenerator:
         self.row_length = row_length
         self.removed_cells = removed_cells
         self.board = [[0 for row in range(row_length)] for col in range(row_length)]
-        self.box_length = math.sqrt(row_length)
+        self.box_length = int(math.sqrt(row_length))
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -143,8 +143,8 @@ class SudokuGenerator:
 
         for j in range(0, 3):
             for k in range(0, 3):
-                self.board[row_start + k][row_start + j] = random.choice(sudoku_nums)
-                sudoku_nums.remove(self.board[row_start + k][row_start + j])
+                self.board[row_start + k][col_start + j] = random.choice(sudoku_nums)
+                sudoku_nums.remove(self.board[row_start + k][col_start + j])
         # assigns random numbers to the box, then removes them from future possibility
 
         '''random_digit = random.randint(1, 9)
