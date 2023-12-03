@@ -125,7 +125,7 @@ class SudokuGenerator:
             if num == self.board[row][col_index]:
                 return False
         # Iterating through smaller 3x3 boards to ensure number is not present within
-        box_validity = self.valid_in_box(row, col, num) #FIXME lowkey not sure if using row and col are the correct parameters, might have to change them -dani 12/12
+        box_validity = self.valid_in_box(row, col, num)
         return box_validity
 
     '''

@@ -1,5 +1,6 @@
 from cell import Cell
 from const import *
+from sudoku_generator import generate_sudoku
 import pygame  #FIXME: import and implement sudoku_generator once it's done
 
 
@@ -11,7 +12,8 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
-        #self.board = sudoku_generator.generate_sudoku(9, Board.removed_cells[difficulty])
+        # self.board = generate_sudoku(9, Board.removed_cells[difficulty])
+        # FIXME there is an error with cells when running this line ^
         '''TEMPORARY CODE TO TEST PROGRAM  (replaces this ^)'''
         temp = [['5', '3', '0', '0', '7', '0', '0', '0', '0'],
                 ['6', '0', '0', '1', '9', '5', '0', '0', '0'],
