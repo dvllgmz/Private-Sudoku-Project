@@ -1,5 +1,6 @@
 from cell import Cell
 from const import *
+from sudoku_generator import generate_sudoku
 import pygame  #FIXME: import and implement sudoku_generator once it's done
 
 
@@ -11,26 +12,16 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
-        #self.board = sudoku_generator.generate_sudoku(9, Board.removed_cells[difficulty])
-        '''TEMPORARY CODE TO TEST PROGRAM  (replaces this ^)'''
-        temp = [['5', '3', '0', '0', '7', '0', '0', '0', '0'],
-                ['6', '0', '0', '1', '9', '5', '0', '0', '0'],
-                ['0', '9', '8', '0', '0', '0', '0', '6', '0'],
-                ['8', '0', '0', '0', '6', '0', '0', '0', '3'],
-                ['4', '0', '0', '8', '0', '3', '0', '0', '1'],
-                ['7', '0', '0', '0', '2', '0', '0', '0', '6'],
-                ['0', '6', '0', '0', '0', '0', '2', '8', '0'],
-                ['0', '0', '0', '4', '1', '9', '0', '0', '5'],
-                ['0', '0', '0', '0', '8', '0', '0', '7', '9']]
-        temp2 = []
-        for col in range(len(temp)):
-            tmp = []
-            for row in range(len(temp[col])):
-                tmp.append(Cell(temp[col][row], row, col, self.screen, is_given=True))
-            temp2.append(tmp)
-        self.board = temp2
-        '''END TEMPORARY CODE TO TEST PROGRAM'''
-        self.user_board = []  # generates user board with user inputs
+        self.board = []  # empty Cell board, code to fill below
+
+        int_board = generate_sudoku(9, Board.removed_cells[difficulty])  # board of integer values (not Cell)
+        for col in range(len(int_board)):
+            current_row = []
+            for row in range(len(int_board[col])):
+                current_row.append(Cell(int_board[col][row], row, col, self.screen, is_given=True))
+            self.board.append(current_row)
+
+        self.user_board = []  # generates user board which will contain user inputs
 
         for column in range(9):
             self.user_board.append([])
@@ -99,24 +90,24 @@ class Board:
     def reset_to_original(self): # Reset all cells in the board to their original values (0 if cleared, otherwise original)
         for row in range(9):
             for col in range(9):
-                self.user_board[row][col].set_cell_value(self.board[row][col].get_cell_value())
+                self.user_board[row][col].set_cell_value(self.board[row][col])
                 # Iterates through clearing what isn't original
     def is_full(self): # Returns a Boolean value indicating whether the board is full or not
         for row in range(9):
             for col in range(9):
-                if self.user_board[row][col].get_cell_value() == '0':
+                if self.user_board[row][col] == '0':
                     return False
         return True
 
     def update_board(self): # Updates the underlying 2D board with values in all cells
         for row in range(9):
             for col in range(9): # Iterates through the board
-                self.board[row][col].set_cell_value(self.user_board[row][col].get_cell_value())
+                self.board[row][col].set_cell_value(self.user_board[row][col])
                 # user_board -> board (2D)
     def find_empty(self): # Finds an empty cell and returns its row and col as a tuple (x,y)
         for row in range(9):
             for col in range(9): # Iterates through the board
-                if self.board[row][col].get_cell_value() == '0': # checks if its empty
+                if self.board[row][col] == '0': # checks if its empty
                     return row, col
                     # Returns it as a tuple
         return None # prevents logic error
