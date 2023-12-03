@@ -1,4 +1,4 @@
-import math,random
+import math, random
 
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
@@ -25,8 +25,8 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board = [[]] #FIXME need to put actual code here lol
-        self.box_length = sqrt(row_length)
+        self.board = [[0 for row in range(row_length)] for col in range(row_length)]
+        self.box_length = math.sqrt(row_length)
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -34,7 +34,7 @@ class SudokuGenerator:
 	Parameters: None
 	Return: list[list]
     '''
-    def get_board(self): -> list[list]
+    def get_board(self):
         return self.board
 
     '''
@@ -76,7 +76,7 @@ class SudokuGenerator:
     '''
     def valid_in_col(self, col, num):
         for value in range(self.row_length):
-            if num == self.board[value][col]
+            if num == self.board[value][col]:
                 return False
         return True
 
@@ -97,7 +97,7 @@ class SudokuGenerator:
         # set as row/col_start + 3 to include row/col + 2 values
         for row in range(row_start, row_start + 3):
             for col in range(col_start, col_start + 3):
-                if num == self.board[row][col]
+                if num == self.board[row][col]:
                     return False
         return True
     
@@ -123,7 +123,7 @@ class SudokuGenerator:
             if num == self.board[row][col_index]:
                 return False
         # Iterating through smaller 3x3 boards to ensure number is not present within
-        box_validity = valid_in_box(row, col, num) #FIXME lowkey not sure if using row and col are the correct parameters, might have to change them -dani 12/12
+        box_validity = self.valid_in_box(row, col, num) #FIXME lowkey not sure if using row and col are the correct parameters, might have to change them -dani 12/12
         return box_validity
 
     '''
