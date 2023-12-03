@@ -70,7 +70,7 @@ def main():
     restart_rectangle = restart_lose_surface.get_rect(center=(250, 350))
 
 
-    current_screen = 'win'
+    current_screen = 'main_menu'
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,6 +78,7 @@ def main():
                 sys.exit()
 
             if current_screen == 'main_menu':
+                screen.blit(title_text, title_rect)
                 screen.blit(easy_surface, easy_rectangle)
                 screen.blit(medium_surface, medium_rectangle)
                 screen.blit(hard_surface, hard_rectangle)
