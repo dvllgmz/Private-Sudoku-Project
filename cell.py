@@ -4,7 +4,7 @@ from const import *
 
 class Cell:
     def __init__(self, value, row, col, screen, is_given=False):
-        self.value = value
+        self.value = str(value)
         self.row = row
         self.col = col
         self.screen = screen
@@ -28,7 +28,7 @@ class Cell:
         cell_color = REGULAR_LINE_COLOR if not is_selected else SELECTED_LINE_COLOR  # different colors if it's selected
         cell_width = 2 if not is_selected else 4  # different width if it's selected
         cell_coords = (self.row * 50) + 25, (self.col * 50) + 25  # get coordinates of cell
-        cell_value = self.value
+        cell_value = str(self.value)
         value_color = GIVEN_NUMBER_COLOR if self.is_given else USER_NUMBER_COLOR
         cell_box = pygame.Rect(cell_coords[0], cell_coords[1], 50, 50)  # create rectangle outline
         pygame.draw.rect(self.screen, cell_color, cell_box, width=cell_width)  # draws rectangle outline
