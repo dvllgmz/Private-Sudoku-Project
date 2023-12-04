@@ -65,36 +65,38 @@ def main():
     lose_rect = lose_text.get_rect(center=(250, 150))
 
     restart_lose_button = button_font.render('Restart', 1, COLOR_WHITE)
-    restart_lose_button.get_rect(center=(250, 350))
+    restart_lose_button.get_rect(center=(125, 350))
     restart_lose_surface = pygame.Surface((medium_button.get_size()[0] + 40, medium_button.get_size()[1] + 40))
     restart_lose_surface.fill(COLOR_RED)
     restart_lose_surface.blit(restart_lose_button, (23, 20))
     restart_rectangle = restart_lose_surface.get_rect(center=(250, 350))
 
     reset_button = small_button_font.render('Reset', 1, COLOR_WHITE)
-    reset_button.get_rect(center=(150, 550))
+    reset_button_text_rect = reset_button.get_rect(center=(100, 550))
     reset_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
     reset_surface.fill(COLOR_RED)
-    reset_surface.blit(reset_button, (0, 0))
+    reset_surface.blit(reset_button, (20, 20))
     # use this line to control text location
-    reset_rectangle = reset_surface.get_rect(center=(150, 550))
+    reset_rectangle = reset_surface.get_rect(center=(100, 550))
+    reset_rectangle.topleft = reset_button_text_rect.topleft
 
     restart_game_button = small_button_font.render('Restart', 1, COLOR_WHITE)
-    restart_game_button.get_rect(center=(275, 550))
+    restart_game_button_text = restart_game_button.get_rect(center=(240, 550))
     restart_game_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
     restart_game_surface.fill(COLOR_RED)
-    restart_game_surface.blit(restart_game_button, (20, 20))
+    restart_game_surface.blit(restart_game_button, (12, 20))
     # use this line to control text location
-    restart_game_rectangle = restart_game_surface.get_rect(center=(275, 550))
+    restart_game_rectangle = restart_game_surface.get_rect(center=(240, 550))
+    restart_game_rectangle.topleft = restart_game_button_text.topleft
 
     exit_game_button = small_button_font.render('Exit', 1, COLOR_WHITE)
-    exit_game_button.get_rect(center=(400, 550))
+    exit_game_button_text = exit_game_button.get_rect(center=(350, 550))
     exit_game_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
     exit_game_surface.fill(COLOR_RED)
-    exit_game_surface.blit(exit_game_button, (0, 0))
+    exit_game_surface.blit(exit_game_button, (20, 20))
     # use this line to control text location
-    exit_game_rectangle = restart_game_surface.get_rect(center=(400, 550))
-
+    exit_game_rectangle = restart_game_surface.get_rect(center=(350, 550))
+    exit_game_rectangle.topleft = exit_game_button_text.topleft
 
     current_screen = 'main_menu'
     while True:
@@ -132,9 +134,10 @@ def main():
                         sys.exit()
 
             if current_screen == 'game':
-                screen.blit(reset_button, reset_rectangle)
-                screen.blit(restart_game_button, restart_game_rectangle)
-                screen.blit(exit_game_button, exit_game_rectangle)
+                screen.blit(reset_surface, reset_rectangle)
+                screen.blit(restart_game_surface, restart_game_rectangle)
+                screen.blit(exit_game_surface, exit_game_rectangle)
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cell = board.click(event.pos[0], event.pos[1])
                     if reset_rectangle.collidepoint(event.pos):
@@ -144,7 +147,6 @@ def main():
                     elif exit_game_rectangle.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()
-                    #FIXME these rectangles are not yet complete, see buttons on line` 74
 
                     if cell is not None:
                         board.select(cell[0], cell[1])  # selects the box based on coords if it exists
