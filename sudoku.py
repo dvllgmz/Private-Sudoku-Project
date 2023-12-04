@@ -93,7 +93,7 @@ def main():
     exit_game_button_text = exit_game_button.get_rect(center=(350, 550))
     exit_game_surface = pygame.Surface((reset_button.get_size()[0] + 40, reset_button.get_size()[1] + 40))
     exit_game_surface.fill(COLOR_RED)
-    exit_game_surface.blit(exit_game_button, (20, 20))
+    exit_game_surface.blit(exit_game_button, (27, 20))
     # use this line to control text location
     exit_game_rectangle = restart_game_surface.get_rect(center=(350, 550))
     exit_game_rectangle.topleft = exit_game_button_text.topleft
@@ -141,9 +141,11 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cell = board.click(event.pos[0], event.pos[1])
                     if reset_rectangle.collidepoint(event.pos):
-                        pass
+                        board.reset_to_original()
                     elif restart_game_rectangle.collidepoint(event.pos):
-                        pass
+                        screen.fill(BACKGROUND_COLOR)
+                        current_screen = 'main_menu'
+                        continue
                     elif exit_game_rectangle.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()
