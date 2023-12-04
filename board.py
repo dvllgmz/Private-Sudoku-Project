@@ -90,7 +90,7 @@ class Board:
     def reset_to_original(self): # Reset all cells in the board to their original values (0 if cleared, otherwise original)
         for row in range(9):
             for col in range(9):
-                self.user_board[row][col].set_cell_value(self.board[row][col])
+                self.user_board[row][col].set_cell_value(0)  # 0, so the user board gets reset
                 # Iterates through clearing what isn't original
     def is_full(self): # Returns a Boolean value indicating whether the board is full or not
         for row in range(9):
