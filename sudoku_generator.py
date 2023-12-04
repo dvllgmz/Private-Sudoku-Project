@@ -271,6 +271,6 @@ def generate_sudoku(size, removed, called_by_board=False):  # the called by boar
     board = sudoku.get_board()  # gets the board with the removed values.
     '''returns the game and solution if it's called by the board, else only the game'''
     if called_by_board:
-        return board, solution
+        return board, solution  # if the function was called by the board class, return both board and solution
     else:
-        return board
+        return board  # if the function is called independently, only return the board
