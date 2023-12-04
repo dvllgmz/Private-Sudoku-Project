@@ -209,7 +209,6 @@ def main():
                         current_screen = 'game'
 
         pygame.display.update()
-        # to implement
 
 
 if __name__ == "__main__":
