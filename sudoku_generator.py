@@ -24,6 +24,7 @@ class SudokuGenerator:
 	None
     '''
     def __init__(self, row_length, removed_cells):
+        # intializing board variables according to constructor parameters
         self.row_length = row_length
         self.removed_cells = removed_cells
         self.board = [[0 for row in range(row_length)] for col in range(row_length)]
@@ -94,13 +95,12 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row, col, num):
-        # iterate through rows/cols of sudoku board
-        # set as row/col_start + 3 to include row/col + 2 values
+        # iterate through row and cols of sudoku board, set as row/col_start + 3 to include row/col + 2 values
         row_start = (row // 3) * 3
         col_start = (col // 3) * 3
-        for row in range(row_start, row_start + 3):
-            for col in range(col_start, col_start + 3):
-                if num == self.board[row][col]:
+        for row in range(row_start, row_start + 3)
+            for col in range(col_start, col_start + 3)
+                if self.board[row][col] == num:
                     return False
         return True
     
@@ -115,17 +115,20 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        # Make sure number is single-digit number
-        if 1 >= num >= 9:
+        # Ensure number is 'single-digit number'
+        if 1>= num >= 9:
             return False
-        # Iterating through entire board to ensure number is not present in general row/column
+
+        # Iterate through sudoku board to ensure number isn't in entire row
         for row_index in range(0, 9):
-            if num == self.board[row_index][col]:
+            if self.board[row_index][col] == num:
                 return False
+        # Iterate through sudoku board to ensure number isn't in entire column
         for col_index in range(0, 9):
-            if num == self.board[row][col_index]:
+            if self.board[row][col_index]:
                 return False
-        # Iterating through smaller 3x3 boards to ensure number is not present within
+
+        # Iterate through smaller 3x3 boards to ensure number is not present within
         box_validity = self.valid_in_box(row, col, num)
         return box_validity
 
@@ -149,12 +152,6 @@ class SudokuGenerator:
                 self.board[row_start + k][col_start + j] = random.choice(sudoku_nums)
                 sudoku_nums.remove(self.board[row_start + k][col_start + j])
         # assigns random numbers to the box, then removes them from future possibility
-
-        '''random_digit = random.randint(1, 9)
-        for row_index in range(row_start, row_start + 3):
-            for col_index in range(col_start, col_start + 3):
-                if self.board[row_index][col_index] == 0:
-                    self.board[row_index][col_index] = random_digit'''
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -169,10 +166,6 @@ class SudokuGenerator:
             # idea is to fill in each row of the box with 3 random numbers, without replacement
             # and then iterate to the next box in the diagonal
             self.fill_box(box * 3, box * 3)
-
-
-        '''for index in range(0, self.row_length, 3):
-            self.fill_box(index, index)'''
 
     '''
     DO NOT CHANGE
@@ -238,6 +231,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
+        # counter variable defined
         num_cells_removed = 0
         while num_cells_removed < self.removed_cells:
             row, col = random.randint(0, 8), random.randint(0, 8)
