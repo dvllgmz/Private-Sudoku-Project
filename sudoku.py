@@ -37,7 +37,7 @@ def main():
     hard_button = button_font.render('Hard', 1, COLOR_WHITE)
     hard_button.get_rect(center=(250, 450))
     hard_surface = pygame.Surface((medium_button.get_size()[0] + 40, medium_button.get_size()[1] + 40))
-    hard_surface.fill(COLOR_RED)
+    hard_surface.fill(COLOR_ORANGE)
     hard_surface.blit(hard_button, (40, 20))
     # use this line to control text location
     hard_rectangle = hard_surface.get_rect(center=(250, 450))
@@ -144,7 +144,7 @@ def main():
                     elif exit_game_rectangle.collidepoint(event.pos):
                         pygame.quit()
                         sys.exit()
-                    #FIXME these rectangles are not yet complete, see buttons on line 74
+                    #FIXME these rectangles are not yet complete, see buttons on line` 74
 
                     if cell is not None:
                         board.select(cell[0], cell[1])  # selects the box based on coords if it exists
