@@ -134,25 +134,3 @@ class Board:
             total_board.append(current_row)  # adds row to board
 
         return total_board == self.solution  # returns whether game equals solution
-
-
-
-
-        """
-        for row in range(9):  # checks each row
-            if len(set(self.board[row])) != 9:  # Checks each row for duplicates, because it's a set
-                return False  # Incorrect
-        for col in range(9):  # checks each column
-            if len(set(
-                    self.board[i][col] for i in range(9))) != 9:  # Checks each column for duplicates, because it's a set
-                return False  # Incorrect
-        for box_row in range(0, 9, 3):
-            for box_col in range(0, 9, 3):  # 0, 3, 6 are the starting index for the rows of boxes
-                if len(set(self.board[i][j] for i in range(box_row, box_row + 3) for j in
-                           range(box_col, box_col + 3))) != 9:
-                    '''okay, so, it basically checks each box. I iterate through each row top to bottom
-                    adding the numbers to the set, then it checks the length of the set because if there was a
-                    duplicate it wouldn't be 9'''
-                    return False
-        return True  # need to add the win screen in the main or sudoko
-        """
