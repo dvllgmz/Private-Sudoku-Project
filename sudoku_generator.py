@@ -237,15 +237,14 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        num_cells_removed = self.removed_cells
-        for num in range(num_cells_removed):
+        num_cells_removed = 0
+        while num_cells_removed < self.removed_cells:
             row, col = random.randint(0, 8), random.randint(0, 8)
-
             if self.board[row][col] == 0:
                 continue
             else:
                 self.board[row][col] = 0
-                num_cells_removed -= 1
+                num_cells_removed += 1
 
 '''
 DO NOT CHANGE
