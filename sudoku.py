@@ -134,9 +134,6 @@ def main():
                         sys.exit()
 
             if current_screen == 'game':
-                screen.blit(reset_surface, reset_rectangle)
-                screen.blit(restart_game_surface, restart_game_rectangle)
-                screen.blit(exit_game_surface, exit_game_rectangle)
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cell = board.click(event.pos[0], event.pos[1])
@@ -183,8 +180,10 @@ def main():
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         sys.exit()
-                    screen.fill(BACKGROUND_COLOR)
                     board.draw()
+                screen.blit(reset_surface, reset_rectangle)
+                screen.blit(restart_game_surface, restart_game_rectangle)
+                screen.blit(exit_game_surface, exit_game_rectangle)
 
             if current_screen == 'win':
                 screen.blit(quit_surface_win, quit_rectangle_win)
