@@ -21,6 +21,16 @@ class Cell:
         self.value = str(value)  # converts to string, useful to display if it is an int
         self.is_sketch = True
 
+
+    '''returns the value of the cell instance, whether it's a sketch or not.'''
+    def get_value(self):
+        return self.value
+
+
+    ''' returns the official value of the cell, returns empty if there's only a sketch'''
+    def get_cell_value(self):
+        return '0' if self.is_sketch else str(self.value)  # returns cell value (only if not a sketch, else 0)
+
     '''this function draws the box outline as well as the value of the cell'''
     def draw(self, is_selected=False):
 

@@ -1,3 +1,4 @@
+import copy
 import math, random
 
 """
@@ -261,11 +262,15 @@ removed is the number of cells to clear (set to 0)
 
 Return: list[list] (a 2D Python list to represent the board)
 '''
-def generate_sudoku(size, removed):
+
+def generate_sudoku(size, removed, called_by_board=False):  # the called by board determines if it should also return the solution
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
-    board = sudoku.get_board()
+    solution = copy.deepcopy(sudoku.get_board())  # gets the solved sudoku board, deep copy to not get changed by remove
     sudoku.remove_cells()
-    board = sudoku.get_board()
-
-    return board
+    board = sudoku.get_board()  # gets the board with the removed values.
+    '''returns the game and solution if it's called by the board, else only the game'''
+    if called_by_board:
+        return board, solution
+    else:
+        return board

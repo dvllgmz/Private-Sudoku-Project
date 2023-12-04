@@ -175,6 +175,11 @@ def main():
                         board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
                     if event.key == pygame.K_RETURN:
                         board.place_number()
+                        if board.find_empty() is None:  # if board is full:
+                            if board.check_board():  # returns true if win, false if lose
+                                current_screen = 'win'  # sets win screen
+                            else:
+                                current_screen = 'lose'  # sets lose screen
                     if event.key == pygame.K_BACKSPACE:
                         board.clear()
                     if event.key == pygame.K_ESCAPE:
@@ -186,6 +191,7 @@ def main():
                 screen.blit(exit_game_surface, exit_game_rectangle)
 
             if current_screen == 'win':
+                screen.fill(BACKGROUND_COLOR)
                 screen.blit(quit_surface_win, quit_rectangle_win)
                 screen.blit(win_text, win_rect)
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -193,6 +199,7 @@ def main():
                         pygame.quit()
                         sys.exit()
             if current_screen == 'lose':
+                screen.fill(BACKGROUND_COLOR)
                 screen.blit(lose_text, lose_rect)
                 screen.blit(restart_lose_surface, restart_rectangle)
                 if event.type == pygame.MOUSEBUTTONDOWN:
