@@ -5,7 +5,7 @@ import pygame
 
 
 class Board:
-    removed_cells = {'easy': 2, 'medium': 40, 'hard': 50}
+    removed_cells = {'easy': 30, 'medium': 40, 'hard': 50}
 
     def __init__(self, width, height, screen, difficulty):
         self.width = width
