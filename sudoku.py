@@ -171,7 +171,7 @@ def main():
                             board.select(board.select()[1] + 1, board.select()[0])
                         else:
                             board.select(0, board.select()[0])
-                    if event.unicode.isdigit():  # if user presses a number (converts event to unicode which gives key)
+                    if str(event.unicode).isdigit():  # if user presses a number (converts event to unicode which gives key)
                         board.sketch(str(event.unicode))  # sketches this number, converts to unicode then to string
                     if event.key == pygame.K_RETURN:
                         board.place_number()
@@ -204,9 +204,9 @@ def main():
                 screen.blit(restart_lose_surface, restart_rectangle)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if restart_rectangle.collidepoint(event.pos):
-                        board = Board(9, 9, screen, 'easy')
-                        board.draw()
-                        current_screen = 'game'
+                        board.reset_to_original()  # resets board
+                        current_screen = 'game'  # sets screen to game
+                        pygame.event.post(pygame.event.Event(pygame.KEYDOWN, {"key": pygame.MOUSEBUTTONDOWN, "unicode": None}))  # creates an event, which will take user to the board.
 
         pygame.display.update()
 
